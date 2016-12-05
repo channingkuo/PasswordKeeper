@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectGuid>{BF0872C6-0A71-4676-951A-8FA2D07CD0FB}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>iOS.App.Delegate</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>iOSAppDelegate</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>i386</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchI18n>
+    </MtouchI18n>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>i386</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchExtraArgs>
+    </MtouchExtraArgs>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <CodesignProvision>
+    </CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchI18n>
+    </MtouchI18n>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>True</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>a37ce0d3-088f-4890-a927-2847ce811e45</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchUseSGen>true</MtouchUseSGen>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <AssemblyName>RekTecApplicationStd</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Info.plist" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entitlements.plist" />
+    <BundleResource Include="Resources\contact_default_avatar%402x.png" />
+    <BundleResource Include="Resources\phone_contact%402x.png" />
+    <BundleResource Include="Resources\_blank.html" />
+    <BundleResource Include="Resources\application_normal%402x.png" />
+    <BundleResource Include="Resources\application_selected%402x.png" />
+    <BundleResource Include="Resources\avatar_notice%402x.png" />
+    <BundleResource Include="Resources\avatar_reminer%402x.png" />
+    <BundleResource Include="Resources\avatar_task%402x.png" />
+    <BundleResource Include="Resources\contact_normal.png" />
+    <BundleResource Include="Resources\contact_normal%402x.png" />
+    <BundleResource Include="Resources\contact_selected.png" />
+    <BundleResource Include="Resources\contact_selected%402x.png" />
+    <BundleResource Include="Resources\department%402x.png" />
+    <BundleResource Include="Resources\ic_aboutus.png" />
+    <BundleResource Include="Resources\ic_aboutus%402x.png" />
+    <BundleResource Include="Resources\ic_aboutus%403x.png" />
+    <BundleResource Include="Resources\ic_change_password.png" />
+    <BundleResource Include="Resources\ic_change_password%402x.png" />
+    <BundleResource Include="Resources\ic_change_password%403x.png" />
+    <BundleResource Include="Resources\ic_change_serverurl.png" />
+    <BundleResource Include="Resources\ic_change_serverurl%402x.png" />
+    <BundleResource Include="Resources\ic_change_serverurl%403x.png" />
+    <BundleResource Include="Resources\ic_check_update%402x.png" />
+    <BundleResource Include="Resources\ic_clear_cache.png" />
+    <BundleResource Include="Resources\ic_clear_cache%402x.png" />
+    <BundleResource Include="Resources\ic_clear_cache%403x.png" />
+    <BundleResource Include="Resources\ic_develop.png" />
+    <BundleResource Include="Resources\ic_develop%402x.png" />
+    <BundleResource Include="Resources\ic_develop%403x.png" />
+    <BundleResource Include="Resources\ic_suggestion.png" />
+    <BundleResource Include="Resources\ic_suggestion%402x.png" />
+    <BundleResource Include="Resources\ic_suggestion%403x.png" />
+    <BundleResource Include="Resources\img_no_message.png" />
+    <BundleResource Include="Resources\img_no_message%402x.png" />
+    <BundleResource Include="Resources\img_no_message%403x.png" />
+    <BundleResource Include="Resources\login_avatar_default.png" />
+    <BundleResource Include="Resources\login_password.png" />
+    <BundleResource Include="Resources\login_password%402x.png" />
+    <BundleResource Include="Resources\login_password%403x.png" />
+    <BundleResource Include="Resources\login_setting.png" />
+    <BundleResource Include="Resources\login_top.png" />
+    <BundleResource Include="Resources\login_user.png" />
+    <BundleResource Include="Resources\login_user%402x.png" />
+    <BundleResource Include="Resources\login_user%403x.png" />
+    <BundleResource Include="Resources\mail%402x.png" />
+    <BundleResource Include="Resources\main_tab_crm_01.png" />
+    <BundleResource Include="Resources\main_tab_crm_01%402x.png" />
+    <BundleResource Include="Resources\main_tab_crm_01%403x.png" />
+    <BundleResource Include="Resources\main_tab_crm_02.png" />
+    <BundleResource Include="Resources\main_tab_crm_02%402x.png" />
+    <BundleResource Include="Resources\main_tab_crm_02%403x.png" />
+    <BundleResource Include="Resources\main_tab_main_01.png" />
+    <BundleResource Include="Resources\main_tab_main_01%402x.png" />
+    <BundleResource Include="Resources\main_tab_main_01%403x.png" />
+    <BundleResource Include="Resources\main_tab_main_02.png" />
+    <BundleResource Include="Resources\main_tab_main_02%402x.png" />
+    <BundleResource Include="Resources\main_tab_main_02%403x.png" />
+    <BundleResource Include="Resources\main_tab_me_01.png" />
+    <BundleResource Include="Resources\main_tab_me_01%402x.png" />
+    <BundleResource Include="Resources\main_tab_me_01%403x.png" />
+    <BundleResource Include="Resources\main_tab_me_02.png" />
+    <BundleResource Include="Resources\main_tab_me_02%402x.png" />
+    <BundleResource Include="Resources\main_tab_me_02%403x.png" />
+    <BundleResource Include="Resources\main_tab_message_01.png" />
+    <BundleResource Include="Resources\main_tab_message_01%402x.png" />
+    <BundleResource Include="Resources\main_tab_message_01%403x.png" />
+    <BundleResource Include="Resources\main_tab_message_02.png" />
+    <BundleResource Include="Resources\main_tab_message_02%402x.png" />
+    <BundleResource Include="Resources\main_tab_message_02%403x.png" />
+    <BundleResource Include="Resources\message_normal%402x.png" />
+    <BundleResource Include="Resources\message_selected%402x.png" />
+    <BundleResource Include="Resources\phone%402x.png" />
+    <BundleResource Include="Resources\recorderImage.png" />
+    <BundleResource Include="Resources\setting%402x.png" />
+    <BundleResource Include="Resources\setting_normal%402x.png" />
+    <BundleResource Include="Resources\setting_selected%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-736h%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-667h%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\Images.xcassets\AppIcons.appiconset\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\iOS_App\iOS_App.csproj">
+      <Project>{D79D6688-C641-4045-96D5-3977C043BD04}</Project>
+      <Name>iOS_App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iOS.Corelib\iOS.Corelib.csproj">
+      <Project>{A0EB2501-9DF4-46F9-B105-E7EBBE76D6FA}</Project>
+      <Name>iOS.Corelib</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

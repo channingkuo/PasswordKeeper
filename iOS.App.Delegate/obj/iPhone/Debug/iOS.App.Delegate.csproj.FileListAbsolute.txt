@@ -1,0 +1,4 @@
+D:\Channing\StructureMade_JH\iOS.App.Delegate\obj\iPhone\Debug\actool\_PartialAppManifest.items
+D:\Channing\StructureMade_JH\iOS.App.Delegate\obj\iPhone\Debug\actool\_BundleResourceWithLogicalName.items
+D:\Channing\StructureMade_JH\iOS.App.Delegate\obj\iPhone\Debug\optimized\
+D:\Channing\StructureMade_JH\iOS.App.Delegate\obj\iPhone\Debug\iOS.App.Delegate.csprojResolveAssemblyReference.cache
