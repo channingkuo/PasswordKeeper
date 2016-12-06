@@ -59,6 +59,20 @@ namespace iOS.Corelib.Configuration
 		}
 
 		/// <summary>
+		/// 是否进入后台模式
+		/// </summary>
+		/// <value><c>true</c> if is first open; otherwise, <c>false</c>.</value>
+		public static bool IsInBackground {
+			get {
+				var v = GetValue ("IsInBackground");
+				return string.IsNullOrWhiteSpace (v) ? false : bool.Parse (v);
+			}
+			set {
+				SetValue ("IsInBackground", value.ToString ());
+			}
+		}
+
+		/// <summary>
 		/// 网络类型
 		/// </summary>
 		/// <value>The is first open.</value>
@@ -272,7 +286,7 @@ namespace iOS.Corelib.Configuration
 		public static bool IsLogOut {
 			get {
 				var v = GetValue ("IsLogOut");
-				return string.IsNullOrWhiteSpace (v) ? false : bool.Parse (v); ;
+				return string.IsNullOrWhiteSpace (v) ? false : bool.Parse (v);
 			}
 			set {
 				SetValue ("IsLogOut", value.ToString ());

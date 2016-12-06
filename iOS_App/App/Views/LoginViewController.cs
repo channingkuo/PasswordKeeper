@@ -69,20 +69,23 @@ namespace iOS.App.App.Views
 			_tableView.Source = new Source (this);
 			_tableView.ReloadData ();
 
-			var context = new LAContext ();
-			NSError AuthError;
-			var myReason = new NSString ("CodeKeeper 需要使用您的 Touch ID");
-			if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
-				var replyHandler = new LAContextReplyHandler ((success, error) => {
-					this.InvokeOnMainThread (() => {
-						if (success) {
-							AlertUtil.Error ("Touch ID通过");
-						} else {
-							AlertUtil.Error ("Touch ID未通过");
-						}
+			if (GlobalAppSetting.IsInBackground && UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
+				var context = new LAContext ();
+				NSError AuthError;
+				var myReason = new NSString ("通过Home键验证手机的Touch ID");
+				if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
+					var replyHandler = new LAContextReplyHandler ((success, error) => {
+						this.InvokeOnMainThread (() => {
+							if (success) {
+								AlertUtil.Error ("Touch ID通过");
+								GlobalAppSetting.IsInBackground = false;
+							} else {
+								AlertUtil.Error ("Touch ID未通过");
+							}
+						});
 					});
-				});
-				context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
+					context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
+				}
 			}
 
 			obs1 = NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillShowNotification, delegate (NSNotification n) {

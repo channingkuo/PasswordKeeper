@@ -43,6 +43,7 @@ namespace iOS.App
 
 		public override void DidEnterBackground (UIApplication application)
 		{
+			GlobalAppSetting.IsInBackground = true;
 		}
 	}
 }
