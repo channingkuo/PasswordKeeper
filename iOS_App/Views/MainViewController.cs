@@ -52,17 +52,15 @@ namespace iOS.App.Views
 				};
 
 				infoElement.Tapped += () => {
-					NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
-						NavigationController.PushViewController (new DetailViewController {
-							info = new DataInfo {
-								Key = info.Key,
-								Name = info.Name,
-								Value = info.Value,
-								Icon = info.Icon,
-								Caption = info.Caption
-							}
-						}, true);
-					};
+					NavigationController.PushViewController (new DetailViewController {
+						info = new DataInfo {
+							Key = info.Key,
+							Name = info.Name,
+							Value = info.Value,
+							Icon = info.Icon,
+							Caption = info.Caption
+						}
+					}, true);
 				};
 
 				section.Insert (0, infoElement);
@@ -84,7 +82,7 @@ namespace iOS.App.Views
 
 			NavigationItem.HidesBackButton = true;
 			//导航栏右上角的新增按钮
-			var addInfo = new UIBarButtonItem (UIImage.FromFile ("setting@2x.png"), UIBarButtonItemStyle.Plain, null);
+			var addInfo = new UIBarButtonItem (UIImage.FromFile ("alipay.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
 				NavigationController.PushViewController (new DetailViewController {
