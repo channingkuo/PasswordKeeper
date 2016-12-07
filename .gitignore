@@ -6,6 +6,8 @@ bin/*
 /iOS.App.Delegate/*.bak
 /iOS.App/obj/*
 /iOS.App/bin/*
+/iOS_App/obj/*
+/iOS_App/bin/*
 /iOS.Corelib/obj/*
 /iOS.Corelib/bin/*
 README.txt
