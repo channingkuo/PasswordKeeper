@@ -1,0 +1,15 @@
+obj/*
+bin/*
+/.vs/*
+/iOS.App.Delegate/obj/*
+/iOS.App.Delegate/bin/*
+/iOS.App.Delegate/*.bak
+/iOS.App/obj/*
+/iOS.App/bin/*
+/iOS.Corelib/obj/*
+/iOS.Corelib/bin/*
+README.txt
+*.user
+*.USER
+*.userprefs
+*.USERPREFS
