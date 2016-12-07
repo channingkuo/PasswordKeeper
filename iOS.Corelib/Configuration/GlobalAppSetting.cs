@@ -62,13 +62,13 @@ namespace iOS.Corelib.Configuration
 		/// 是否进入后台模式
 		/// </summary>
 		/// <value><c>true</c> if is first open; otherwise, <c>false</c>.</value>
-		public static bool IsInBackground {
+		public static bool InForeground {
 			get {
-				var v = GetValue ("IsInBackground");
+				var v = GetValue ("InForeground");
 				return string.IsNullOrWhiteSpace (v) ? false : bool.Parse (v);
 			}
 			set {
-				SetValue ("IsInBackground", value.ToString ());
+				SetValue ("InForeground", value.ToString ());
 			}
 		}
 

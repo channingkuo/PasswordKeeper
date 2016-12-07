@@ -135,82 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entitlements.plist" />
-    <BundleResource Include="Resources\contact_default_avatar%402x.png" />
-    <BundleResource Include="Resources\phone_contact%402x.png" />
-    <BundleResource Include="Resources\_blank.html" />
-    <BundleResource Include="Resources\application_normal%402x.png" />
-    <BundleResource Include="Resources\application_selected%402x.png" />
-    <BundleResource Include="Resources\avatar_notice%402x.png" />
-    <BundleResource Include="Resources\avatar_reminer%402x.png" />
-    <BundleResource Include="Resources\avatar_task%402x.png" />
-    <BundleResource Include="Resources\contact_normal.png" />
-    <BundleResource Include="Resources\contact_normal%402x.png" />
-    <BundleResource Include="Resources\contact_selected.png" />
-    <BundleResource Include="Resources\contact_selected%402x.png" />
-    <BundleResource Include="Resources\department%402x.png" />
-    <BundleResource Include="Resources\ic_aboutus.png" />
-    <BundleResource Include="Resources\ic_aboutus%402x.png" />
-    <BundleResource Include="Resources\ic_aboutus%403x.png" />
-    <BundleResource Include="Resources\ic_change_password.png" />
-    <BundleResource Include="Resources\ic_change_password%402x.png" />
-    <BundleResource Include="Resources\ic_change_password%403x.png" />
-    <BundleResource Include="Resources\ic_change_serverurl.png" />
-    <BundleResource Include="Resources\ic_change_serverurl%402x.png" />
-    <BundleResource Include="Resources\ic_change_serverurl%403x.png" />
-    <BundleResource Include="Resources\ic_check_update%402x.png" />
-    <BundleResource Include="Resources\ic_clear_cache.png" />
-    <BundleResource Include="Resources\ic_clear_cache%402x.png" />
-    <BundleResource Include="Resources\ic_clear_cache%403x.png" />
-    <BundleResource Include="Resources\ic_develop.png" />
-    <BundleResource Include="Resources\ic_develop%402x.png" />
-    <BundleResource Include="Resources\ic_develop%403x.png" />
-    <BundleResource Include="Resources\ic_suggestion.png" />
-    <BundleResource Include="Resources\ic_suggestion%402x.png" />
-    <BundleResource Include="Resources\ic_suggestion%403x.png" />
-    <BundleResource Include="Resources\img_no_message.png" />
-    <BundleResource Include="Resources\img_no_message%402x.png" />
-    <BundleResource Include="Resources\img_no_message%403x.png" />
-    <BundleResource Include="Resources\login_avatar_default.png" />
-    <BundleResource Include="Resources\login_password.png" />
-    <BundleResource Include="Resources\login_password%402x.png" />
-    <BundleResource Include="Resources\login_password%403x.png" />
-    <BundleResource Include="Resources\login_setting.png" />
-    <BundleResource Include="Resources\login_top.png" />
-    <BundleResource Include="Resources\login_user.png" />
-    <BundleResource Include="Resources\login_user%402x.png" />
-    <BundleResource Include="Resources\login_user%403x.png" />
-    <BundleResource Include="Resources\mail%402x.png" />
-    <BundleResource Include="Resources\main_tab_crm_01.png" />
-    <BundleResource Include="Resources\main_tab_crm_01%402x.png" />
-    <BundleResource Include="Resources\main_tab_crm_01%403x.png" />
-    <BundleResource Include="Resources\main_tab_crm_02.png" />
-    <BundleResource Include="Resources\main_tab_crm_02%402x.png" />
-    <BundleResource Include="Resources\main_tab_crm_02%403x.png" />
-    <BundleResource Include="Resources\main_tab_main_01.png" />
-    <BundleResource Include="Resources\main_tab_main_01%402x.png" />
-    <BundleResource Include="Resources\main_tab_main_01%403x.png" />
-    <BundleResource Include="Resources\main_tab_main_02.png" />
-    <BundleResource Include="Resources\main_tab_main_02%402x.png" />
-    <BundleResource Include="Resources\main_tab_main_02%403x.png" />
-    <BundleResource Include="Resources\main_tab_me_01.png" />
-    <BundleResource Include="Resources\main_tab_me_01%402x.png" />
-    <BundleResource Include="Resources\main_tab_me_01%403x.png" />
-    <BundleResource Include="Resources\main_tab_me_02.png" />
-    <BundleResource Include="Resources\main_tab_me_02%402x.png" />
-    <BundleResource Include="Resources\main_tab_me_02%403x.png" />
-    <BundleResource Include="Resources\main_tab_message_01.png" />
-    <BundleResource Include="Resources\main_tab_message_01%402x.png" />
-    <BundleResource Include="Resources\main_tab_message_01%403x.png" />
-    <BundleResource Include="Resources\main_tab_message_02.png" />
-    <BundleResource Include="Resources\main_tab_message_02%402x.png" />
-    <BundleResource Include="Resources\main_tab_message_02%403x.png" />
-    <BundleResource Include="Resources\message_normal%402x.png" />
-    <BundleResource Include="Resources\message_selected%402x.png" />
-    <BundleResource Include="Resources\phone%402x.png" />
-    <BundleResource Include="Resources\recorderImage.png" />
-    <BundleResource Include="Resources\setting%402x.png" />
-    <BundleResource Include="Resources\setting_normal%402x.png" />
-    <BundleResource Include="Resources\setting_selected%402x.png" />
+    <BundleResource Include="Resources\qq.png" />
+    <BundleResource Include="Resources\alipay.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
@@ -226,6 +152,13 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-667h%402x.png" />
+    <BundleResource Include="Resources\Default-736h%403x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
