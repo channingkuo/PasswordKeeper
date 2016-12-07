@@ -13,3 +13,4 @@ README.txt
 *.USER
 *.userprefs
 *.USERPREFS
+*.DS_Store
