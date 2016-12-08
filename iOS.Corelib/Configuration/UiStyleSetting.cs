@@ -79,15 +79,15 @@ namespace iOS.Corelib.Configuration
 			ScreenHeight = UIScreen.MainScreen.Bounds.Height;
 
 			if (IsIos7OrLater) {
-				UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB (206, 26, 27);
-				UINavigationBar.Appearance.TintColor = UIColor.White;//RektecBlueColor;
+				UINavigationBar.Appearance.BarTintColor = UIColor.White;//UIColor.FromRGB (206, 26, 27);
+				UINavigationBar.Appearance.TintColor = UIColor.Gray;//RektecBlueColor;
 				nav.NavigationBar.Translucent = false;
 			} else {
 				UINavigationBar.Appearance.TintColor = UIColor.White;//RektecBlueColor;
 			}
 			UINavigationBar.Appearance.SetTitleTextAttributes (new UITextAttributes () {
-				TextColor = UIColor.White,//RektecBlueColor,
-				TextShadowColor = UIColor.White//RektecBlueColor
+				TextColor = UIColor.FromRGB (206, 26, 27),//RektecBlueColor,
+				TextShadowColor = UIColor.FromRGB (206, 26, 27)//RektecBlueColor
 			});
 
 			nav.NavigationBar.BarStyle = UIBarStyle.Default;

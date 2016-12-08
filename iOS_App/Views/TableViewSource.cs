@@ -15,86 +15,87 @@ using UIKit;
 
 namespace iOS.App.Views
 {
-    public class TableViewSource : UITableViewSource
-    {
-        private List<DataInfo> infos;
-        private HomeViewController vc;
+	public class TableViewSource : UITableViewSource
+	{
+		private List<DataInfo> infos;
+		private HomeViewController vc;
 
-        public TableViewSource(HomeViewController vc)
-        {
-            infos = FileUtils.GetAllFileContentFromTmp();
-            this.vc = vc;
-        }
+		public TableViewSource (HomeViewController vc)
+		{
+			infos = FileUtils.GetAllFileContentFromTmp ();
+			if (infos.Count > 0)
+				vc.tableView.BackgroundView = null;
+			this.vc = vc;
+		}
 
-        public override nint NumberOfSections(UITableView tableView)
-        {
-            return (nint)1;
-        }
+		public override nint NumberOfSections (UITableView tableView)
+		{
+			return (nint)1;
+		}
 
-        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            return (nfloat)65;
-        }
+		public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			return (nfloat)65;
+		}
 
-        public override nint RowsInSection(UITableView tableView, nint section)
-        {
-            return infos == null ? 0 : infos.Count;
-        }
+		public override nint RowsInSection (UITableView tableView, nint section)
+		{
+			return infos == null ? 0 : infos.Count;
+		}
 
-        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
-        {
-            if (infos == null)
-                return null;
-            if (infos.Count <= indexPath.Row)
-                return null;
+		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (infos == null)
+				return null;
+			if (infos.Count <= indexPath.Row)
+				return null;
 
-            var info = infos[indexPath.Row];
-            var cellIdentifier = info.Key;
-            HomeTableViewCell cell = tableView.DequeueReusableCell(cellIdentifier) as HomeTableViewCell;
-            if (cell == null)
-                cell = new HomeTableViewCell((NSString)cellIdentifier);
-            cell.UpdateCell(info);
-            return cell;
-        }
+			var info = infos [indexPath.Row];
+			var cellIdentifier = info.Key;
+			HomeTableViewCell cell = tableView.DequeueReusableCell (cellIdentifier) as HomeTableViewCell;
+			if (cell == null)
+				cell = new HomeTableViewCell ((NSString)cellIdentifier);
+			cell.UpdateCell (info);
+			return cell;
+		}
 
-        public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)
-        {
-            if (infos == null)
-                return false;
-            if (infos.Count <= indexPath.Row)
-                return false;
-            return true;
-        }
+		public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (infos == null)
+				return false;
+			if (infos.Count <= indexPath.Row)
+				return false;
+			return true;
+		}
 
-        public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
-        {
-            if (editingStyle != UITableViewCellEditingStyle.Delete)
-                return;
+		public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
+		{
+			if (editingStyle != UITableViewCellEditingStyle.Delete)
+				return;
 
-            if (infos == null)
-                return;
+			if (infos == null)
+				return;
 
-            if (infos.Count <= indexPath.Row)
-                return;
+			if (infos.Count <= indexPath.Row)
+				return;
 
-            var info = infos[indexPath.Row];
-            FileUtils.DeleteFile(key: info.Key);
-        }
+			var info = infos [indexPath.Row];
+			FileUtils.DeleteFile (key: info.Key);
+		}
 
-        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
-        {
-            if (infos == null)
-                return;
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (infos == null)
+				return;
 
-            if (infos.Count <= indexPath.Row)
-                return;
+			if (infos.Count <= indexPath.Row)
+				return;
 
-            var info = infos[indexPath.Row];
-            vc.NavigationController.PushViewController(new DetailViewController
-            {
-                info = info
-            }, true);
-            tableView.DeselectRow(indexPath, true);
-        }
-    }
+			var info = infos [indexPath.Row];
+			vc.NavigationController.PushViewController (new DetailViewController {
+				info = info
+			}, true);
+			tableView.DeselectRow (indexPath, true);
+		}
+	}
 }

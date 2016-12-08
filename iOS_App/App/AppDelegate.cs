@@ -6,21 +6,20 @@ using UIKit;
 
 namespace iOS.App
 {
-    public class AppDelegate : UIApplicationDelegate
+	public class AppDelegate : UIApplicationDelegate
 	{
 		private UIWindow _window;
 
-		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			FileSystemUtil.Disabled_iCloudBackup ();
 
 			GlobalAppSetting.InForeground = false;
 
 			_window = new UIWindow (UIScreen.MainScreen.Bounds);
-            //var nav = new XrmNavigationController (new MainViewController (new MonoTouch.Dialog.RootElement ("CodeKeeper")));
-            var nav = new XrmNavigationController(new HomeViewController());
-            AlertUtil.Initialize (nav);
-			UiStyleSetting.Initialize (app, nav);
+			var nav = new XrmNavigationController (new HomeViewController ());
+			AlertUtil.Initialize (nav);
+			UiStyleSetting.Initialize (application, nav);
 
 			_window.RootViewController = nav;
 			_window.MakeKeyAndVisible ();
