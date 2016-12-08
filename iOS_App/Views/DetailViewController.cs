@@ -1,10 +1,18 @@
-﻿using System;
+﻿#region 文件头部
+/**********
+Copyright @ Channing Kuo All rights reserved. 
+****************
+作者:  Channing Guo
+日期 : 2016-12-08
+说明 : 新增编辑页
+****************/
+#endregion
 using iOS.Corelib.Views;
 using iOS.Corelib;
 
 namespace iOS.App.Views
 {
-	public class DetailViewController : BaseViewController
+    public class DetailViewController : BaseViewController
 	{
 		public DataInfo info;
 

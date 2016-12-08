@@ -2,13 +2,11 @@ using Foundation;
 using iOS.App.Views;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
-using System.Threading;
 using UIKit;
-using System.Diagnostics;
 
 namespace iOS.App
 {
-	public class AppDelegate : UIApplicationDelegate
+    public class AppDelegate : UIApplicationDelegate
 	{
 		private UIWindow _window;
 
@@ -19,9 +17,9 @@ namespace iOS.App
 			GlobalAppSetting.InForeground = false;
 
 			_window = new UIWindow (UIScreen.MainScreen.Bounds);
-			var nav = new XrmNavigationController (new MainViewController (new MonoTouch.Dialog.RootElement ("CodeKeeper")));
-
-			AlertUtil.Initialize (nav);
+            //var nav = new XrmNavigationController (new MainViewController (new MonoTouch.Dialog.RootElement ("CodeKeeper")));
+            var nav = new XrmNavigationController(new HomeViewController());
+            AlertUtil.Initialize (nav);
 			UiStyleSetting.Initialize (app, nav);
 
 			_window.RootViewController = nav;
