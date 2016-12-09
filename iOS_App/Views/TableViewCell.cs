@@ -66,7 +66,7 @@ namespace iOS.App.Views
 
 		private DateTime TransFormat (string time)
 		{
-			var dateSpans = time.Split ('/');
+			var dateSpans = time.Split ('-');
 			var tmpSpans = dateSpans [2].Split (' ');
 			var timeSpans = tmpSpans [1].Split (':');
 			return new DateTime (Convert.ToInt32 (dateSpans [0]), Convert.ToInt32 (dateSpans [1]), Convert.ToInt32 (tmpSpans [0]), Convert.ToInt32 (timeSpans [0]), Convert.ToInt32 (timeSpans [1]), Convert.ToInt32 (timeSpans [2]));

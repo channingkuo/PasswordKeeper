@@ -17,7 +17,7 @@ namespace iOS.App
 			GlobalAppSetting.InForeground = false;
 
 			_window = new UIWindow (UIScreen.MainScreen.Bounds);
-			var nav = new XrmNavigationController (new HomeViewController ());
+			var nav = new XrmNavigationController (new TransitViewController ());
 			AlertUtil.Initialize (nav);
 			UiStyleSetting.Initialize (application, nav);
 
@@ -32,6 +32,11 @@ namespace iOS.App
 
 		public override void RegisteredForRemoteNotifications (UIApplication application, NSData deviceToken)
 		{
+		}
+
+		public override void WillTerminate (UIApplication application)
+		{
+			GlobalAppSetting.InForeground = false;
 		}
 
 		public override void WillEnterForeground (UIApplication application)

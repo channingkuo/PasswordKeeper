@@ -10,7 +10,6 @@ Copyright @ Channing Kuo All rights reserved.
 using System.IO;
 using CoreGraphics;
 using Foundation;
-using iOS.Corelib;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
 using iOS.Corelib.Views;
@@ -31,6 +30,7 @@ namespace iOS.App.Views
 		{
 			base.ViewWillAppear (animated);
 			Title = "CodeKeeper";
+			NavigationController.NavigationBarHidden = false;
 			NavigationItem.HidesBackButton = true;
 
 			var accountInfo = Path.Combine (FileSystemUtil.TmpFolder, "AccountInfo");
@@ -43,41 +43,13 @@ namespace iOS.App.Views
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
 				NavigationController.PushViewController (new DetailViewController {
-					info = new DataInfo {
-						Caption = "新增"
-					}
+					key = "",
+					title = "新建"
 				}, true);
 			};
 
-			//if (!GlobalAppSetting.InForeground) {
-			//	if (!UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
-			//		AlertUtil.Error ("当前系统低于iOS 10.0");
-			//	} else {
-			//		var context = new LAContext ();
-			//		NSError AuthError;
-			//		var myReason = new NSString ("通过Home键验证手机的Touch ID");
-			//		if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
-			//			var replyHandler = new LAContextReplyHandler ((success, error) => {
-			//				InvokeOnMainThread (() => {
-			//					if (success) {
-			//						GlobalAppSetting.InForeground = true;
-
 			tableView.Source = new TableViewSource (this);
 			tableView.ReloadData ();
-			//					} else {
-			//						var alertAction = UIAlertController.Create ("Touch ID不可用", "", UIAlertControllerStyle.Alert);
-			//						alertAction.AddAction (UIAlertAction.Create ("确认", UIAlertActionStyle.Default, alert => {
-			//							GlobalAppSetting.InForeground = false;
-			//							TerminateWithSuccess ();
-			//						}));
-			//						PresentViewController (alertAction, true, null);
-			//					}
-			//				});
-			//			});
-			//			context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
-			//		}
-			//	}
-			//}
 		}
 
 		public override void ViewDidLoad ()

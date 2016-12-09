@@ -25,7 +25,7 @@ namespace iOS.Corelib
 
 				using (StreamReader sr = new StreamReader (fileFullName)) {
 					string info = sr.ReadToEnd ();
-					string [] infos = info.Split ('-');
+					string [] infos = info.Split ('=');
 					if (infos.Length < 6)
 						return null;
 					return new DataInfo {
@@ -62,7 +62,7 @@ namespace iOS.Corelib
 				}
 				using (StreamReader sr = new StreamReader (file)) {
 					string info = sr.ReadToEnd ();
-					string [] infos = info.Split ('-');
+					string [] infos = info.Split ('=');
 					if (infos.Length < 6)
 						continue;
 					infoList.Add (new DataInfo {
@@ -132,6 +132,6 @@ namespace iOS.Corelib
 		public string Icon { get; set; }
 		public string Caption { get; set; }
 		public string LastEditTime { get; set; }
-		// Key + "-" + Name + "-" + Value + "-" + Icon + "-" + Caption + "-" + LastEditTime
+		// Key + "=" + Name + "=" + Value + "=" + Icon + "=" + Caption + "=" + LastEditTime
 	}
 }

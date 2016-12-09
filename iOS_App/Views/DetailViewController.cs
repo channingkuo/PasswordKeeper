@@ -13,15 +13,16 @@ using UIKit;
 using CoreGraphics;
 using System;
 using iOS.Corelib.Configuration;
-using MonoTouch.Dialog;
 
 namespace iOS.App.Views
 {
 	public class DetailViewController : BaseViewController
 	{
-		public DataInfo info;
+		private DataInfo info;
+		public string title;
+		public string key;
 
-		UIView border1, border2;
+		UIView border, border1, border2;
 		UITextField captionTextField, nameTextField, valueTextField;
 
 		/// <summary>
@@ -32,15 +33,17 @@ namespace iOS.App.Views
 		{
 			base.ViewWillAppear (animated);
 
-			Title = info.Caption;
+			Title = title ?? "新建";
+
 			View.BackgroundColor = UIColor.White;
 
 			var addInfo = new UIBarButtonItem (UIImage.FromFile ("alipay.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
-				//var key = DateTime.Now.ToString ("yyyyMMddHHmmss");
-				//var content = key + "-" + a.Text + "-" + b.Text + "-" + c.Text + "-" + d.Text + "-" + DateTime.Now.ToString ("yyyy/MM/dd HH:mm:ss");
-				//FileUtils.SaveFileContentToTmp (key, content);
+				var identity = DateTime.Now.ToString ("yyyyMMddHHmmssss");
+				var content = identity + "=" + nameTextField.Text + "=" + valueTextField.Text + "=qq.png" + "=" + captionTextField.Text + "=" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
+				FileUtils.SaveFileContentToTmp (identity, content);
+				NavigationController.PopViewController (true);
 			};
 		}
 
@@ -51,42 +54,63 @@ namespace iOS.App.Views
 		{
 			base.ViewDidLoad ();
 
+			info = FileUtils.GetFileContentFromTmp (key);
+
 			captionTextField = new UITextField (new CGRect (0, 10, View.Frame.Width, 40)) {
-				BackgroundColor = UIColor.Red,
+				BackgroundColor = UIColor.White,
 				LeftViewMode = UITextFieldViewMode.Always,
 				AdjustsFontSizeToFitWidth = true,
 				Font = UIFont.SystemFontOfSize (UiStyleSetting.FontTitleSize),
-				TextAlignment = UITextAlignment.Center,
-				Text = info.Caption ?? "",
-				Placeholder = "Caption"
+				TextAlignment = UITextAlignment.Left,
+				Text = info == null ? "" : info.Caption,
+				Placeholder = "Caption",
+				LeftView = new UILabel (new CGRect (0, 0, View.Frame.Width / 4, 40)) {
+					Text = "Caption",
+					TextColor = UIColor.Gray,
+					TextAlignment = UITextAlignment.Center
+				}
 			};
-
-			nameTextField = new UITextField (new CGRect (0, 100, View.Frame.Width, 40)) {
-				BackgroundColor = UIColor.Red,
-				LeftViewMode = UITextFieldViewMode.Always,
-				AdjustsFontSizeToFitWidth = true,
-				Font = UIFont.SystemFontOfSize (UiStyleSetting.FontTitleSize),
-				TextAlignment = UITextAlignment.Center,
-				Text = info.Name ?? "",
-				Placeholder = "Account"
-			};
-			border1 = new UIView (new CGRect (nameTextField.Frame.Left, nameTextField.Frame.Height, nameTextField.Frame.Width, 1F)) {
+			border = new UIView (new CGRect (0, 10 + 40, captionTextField.Frame.Width, 1F)) {
 				BackgroundColor = UiStyleSetting.Color_weak_01
 			};
 
-			valueTextField = new UITextField (new CGRect (0, 210, View.Frame.Width, 40)) {
-				BackgroundColor = UIColor.Red,
+			nameTextField = new UITextField (new CGRect (0, 60, View.Frame.Width, 40)) {
+				BackgroundColor = UIColor.White,
 				LeftViewMode = UITextFieldViewMode.Always,
 				AdjustsFontSizeToFitWidth = true,
 				Font = UIFont.SystemFontOfSize (UiStyleSetting.FontTitleSize),
-				TextAlignment = UITextAlignment.Center,
-				Text = info.Value ?? "",
-				Placeholder = "Password"
+				TextAlignment = UITextAlignment.Left,
+				Text = info == null ? "" : info.Name,
+				Placeholder = "Account",
+				LeftView = new UILabel (new CGRect (0, 0, View.Frame.Width / 4, 40)) {
+					Text = "Account",
+					TextColor = UIColor.Gray,
+					TextAlignment = UITextAlignment.Center
+				}
 			};
-			border2 = new UIView (new CGRect (valueTextField.Frame.Left, valueTextField.Frame.Height, valueTextField.Frame.Width, 1F)) {
+			border1 = new UIView (new CGRect (0, 60 + 40, nameTextField.Frame.Width, 1F)) {
 				BackgroundColor = UiStyleSetting.Color_weak_01
 			};
-			View.AddSubviews (captionTextField, nameTextField, border1, valueTextField, border2);
+
+			valueTextField = new UITextField (new CGRect (0, 110, View.Frame.Width, 40)) {
+				BackgroundColor = UIColor.White,
+				LeftViewMode = UITextFieldViewMode.Always,
+				AdjustsFontSizeToFitWidth = true,
+				Font = UIFont.SystemFontOfSize (UiStyleSetting.FontTitleSize),
+				TextAlignment = UITextAlignment.Left,
+				Text = info == null ? "" : info.Value,
+				Placeholder = "Password",
+				SecureTextEntry = true,
+				LeftView = new UILabel (new CGRect (0, 0, View.Frame.Width / 4, 40)) {
+					Text = "Password",
+					TextColor = UIColor.Gray,
+					TextAlignment = UITextAlignment.Center
+				}
+			};
+			border2 = new UIView (new CGRect (0, 110 + 40, valueTextField.Frame.Width, 1F)) {
+				BackgroundColor = UiStyleSetting.Color_weak_01
+			};
+			View.AddSubviews (captionTextField, border, nameTextField, border1, valueTextField, border2);
 		}
 
 		/// <summary>

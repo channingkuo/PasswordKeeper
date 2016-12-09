@@ -82,7 +82,7 @@ namespace iOS.App.Views
 
 			var info = infos [indexPath.Row];
 			FileUtils.DeleteFile (key: info.Key);
-			infos.RemoveAt (indexPath.Row);
+			infos.RemoveAll ((obj) => obj.Key == info.Key);
 			//if (infos.Count == 0)
 			//	vc.tableView.Add (new UILabel (new CGRect (0, vc.View.Frame.Height / 2, vc.View.Frame.Width, 20)) {
 			//		Text = "还没有记录，赶紧去添加吧...",
@@ -102,7 +102,8 @@ namespace iOS.App.Views
 
 			var info = infos [indexPath.Row];
 			vc.NavigationController.PushViewController (new DetailViewController {
-				info = info
+				key = info.Key,
+				title = info.Caption
 			}, true);
 			tableView.DeselectRow (indexPath, true);
 		}
