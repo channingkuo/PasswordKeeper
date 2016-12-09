@@ -12,6 +12,7 @@ using iOS.Corelib;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using CoreGraphics;
 
 namespace iOS.App.Views
 {
@@ -81,6 +82,14 @@ namespace iOS.App.Views
 
 			var info = infos [indexPath.Row];
 			FileUtils.DeleteFile (key: info.Key);
+			infos.RemoveAt (indexPath.Row);
+			//if (infos.Count == 0)
+			//	vc.tableView.Add (new UILabel (new CGRect (0, vc.View.Frame.Height / 2, vc.View.Frame.Width, 20)) {
+			//		Text = "还没有记录，赶紧去添加吧...",
+			//		TextAlignment = UITextAlignment.Center,
+			//		TextColor = UIColor.FromRGB (136, 136, 136)
+			//	});
+			vc.tableView.ReloadData ();
 		}
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)

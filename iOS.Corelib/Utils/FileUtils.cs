@@ -26,14 +26,15 @@ namespace iOS.Corelib
 				using (StreamReader sr = new StreamReader (fileFullName)) {
 					string info = sr.ReadToEnd ();
 					string [] infos = info.Split ('-');
-					if (infos.Length < 5)
+					if (infos.Length < 6)
 						return null;
 					return new DataInfo {
 						Key = infos [0],
 						Name = infos [1],
 						Value = infos [2],
 						Icon = infos [3],
-						Caption = infos [4]
+						Caption = infos [4],
+						LastEditTime = infos [5]
 					};
 				}
 			} catch (Exception ex) {
@@ -62,14 +63,15 @@ namespace iOS.Corelib
 				using (StreamReader sr = new StreamReader (file)) {
 					string info = sr.ReadToEnd ();
 					string [] infos = info.Split ('-');
-					if (infos.Length < 5)
+					if (infos.Length < 6)
 						continue;
 					infoList.Add (new DataInfo {
 						Key = infos [0],
 						Name = infos [1],
 						Value = infos [2],
 						Icon = infos [3],
-						Caption = infos [4]
+						Caption = infos [4],
+						LastEditTime = infos [5]
 					});
 				}
 			}
@@ -129,6 +131,7 @@ namespace iOS.Corelib
 		public string Value { get; set; }
 		public string Icon { get; set; }
 		public string Caption { get; set; }
-		// Key + "-" + Name + "-" + Value + "-" + Icon + "-" + Caption
+		public string LastEditTime { get; set; }
+		// Key + "-" + Name + "-" + Value + "-" + Icon + "-" + Caption + "-" + LastEditTime
 	}
 }

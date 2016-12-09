@@ -49,35 +49,35 @@ namespace iOS.App.Views
 				}, true);
 			};
 
-			if (!GlobalAppSetting.InForeground) {
-				if (!UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
-					AlertUtil.Error ("当前系统低于iOS 10.0");
-				} else {
-					var context = new LAContext ();
-					NSError AuthError;
-					var myReason = new NSString ("通过Home键验证手机的Touch ID");
-					if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
-						var replyHandler = new LAContextReplyHandler ((success, error) => {
-							InvokeOnMainThread (() => {
-								if (success) {
-									GlobalAppSetting.InForeground = true;
+			//if (!GlobalAppSetting.InForeground) {
+			//	if (!UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
+			//		AlertUtil.Error ("当前系统低于iOS 10.0");
+			//	} else {
+			//		var context = new LAContext ();
+			//		NSError AuthError;
+			//		var myReason = new NSString ("通过Home键验证手机的Touch ID");
+			//		if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
+			//			var replyHandler = new LAContextReplyHandler ((success, error) => {
+			//				InvokeOnMainThread (() => {
+			//					if (success) {
+			//						GlobalAppSetting.InForeground = true;
 
-									tableView.Source = new TableViewSource (this);
-									tableView.ReloadData ();
-								} else {
-									var alertAction = UIAlertController.Create ("Touch ID不可用", "", UIAlertControllerStyle.Alert);
-									alertAction.AddAction (UIAlertAction.Create ("确认", UIAlertActionStyle.Default, alert => {
-										GlobalAppSetting.InForeground = false;
-										TerminateWithSuccess ();
-									}));
-									PresentViewController (alertAction, true, null);
-								}
-							});
-						});
-						context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
-					}
-				}
-			}
+			tableView.Source = new TableViewSource (this);
+			tableView.ReloadData ();
+			//					} else {
+			//						var alertAction = UIAlertController.Create ("Touch ID不可用", "", UIAlertControllerStyle.Alert);
+			//						alertAction.AddAction (UIAlertAction.Create ("确认", UIAlertActionStyle.Default, alert => {
+			//							GlobalAppSetting.InForeground = false;
+			//							TerminateWithSuccess ();
+			//						}));
+			//						PresentViewController (alertAction, true, null);
+			//					}
+			//				});
+			//			});
+			//			context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
+			//		}
+			//	}
+			//}
 		}
 
 		public override void ViewDidLoad ()
@@ -99,13 +99,6 @@ namespace iOS.App.Views
 
 			Add (tableView);
 		}
-
-		//private void ChatListChangeCallback(ChatListViewModel c)
-		//{
-		//    InvokeOnMainThread(() => {
-		//        tableView.ReloadData();
-		//    });
-		//}
 
 		public void UpdateUiInterface ()
 		{
