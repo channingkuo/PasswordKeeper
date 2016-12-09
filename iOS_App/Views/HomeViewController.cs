@@ -9,11 +9,9 @@ Copyright @ Channing Kuo All rights reserved.
 #endregion
 using System.IO;
 using CoreGraphics;
-using Foundation;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
 using iOS.Corelib.Views;
-using LocalAuthentication;
 using ObjCRuntime;
 using UIKit;
 
@@ -55,6 +53,12 @@ namespace iOS.App.Views
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			// 判断设备是否支持3D Touch
+			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available) {
+				// 注册Pop和Peek
+				RegisterForPreviewingWithDelegate (new ViewPreviewingDelegate (this), View);
+			}
 
 			tableView = new UITableView (new CGRect (View.Bounds.X,
 													 View.Bounds.Y,

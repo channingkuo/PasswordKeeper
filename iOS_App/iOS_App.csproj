@@ -41,6 +41,7 @@
     <Compile Include="Views\TableViewSource.cs" />
     <Compile Include="Views\HomeViewController.cs" />
     <Compile Include="Views\TransitViewController.cs" />
+    <Compile Include="Views\ViewPreviewingDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BaiduMapSDK">

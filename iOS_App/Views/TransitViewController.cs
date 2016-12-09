@@ -13,10 +13,8 @@ using iOS.Corelib.Utils;
 using iOS.Corelib.Views;
 using LocalAuthentication;
 using UIKit;
-using iOS.App.Views;
-using CoreGraphics;
 
-namespace iOS.App
+namespace iOS.App.Views
 {
 	public class TransitViewController : BaseViewController
 	{
