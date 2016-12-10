@@ -9,6 +9,7 @@ Copyright @ Channing Kuo All rights reserved.
 #endregion
 using System.IO;
 using CoreGraphics;
+using Foundation;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
 using iOS.Corelib.Views;
@@ -20,7 +21,7 @@ namespace iOS.App.Views
 	/// <summary>
 	/// 主页
 	/// </summary>
-	public class HomeViewController : BaseViewController
+	public class HomeViewController : BaseViewController, IUIViewControllerPreviewingDelegate
 	{
 		public UITableView tableView;
 
@@ -54,18 +55,13 @@ namespace iOS.App.Views
 		{
 			base.ViewDidLoad ();
 
-			// 判断设备是否支持3D Touch
-			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available) {
-				// 注册Pop和Peek
-				RegisterForPreviewingWithDelegate (new ViewPreviewingDelegate (this), View);
-			}
-
 			tableView = new UITableView (new CGRect (View.Bounds.X,
-													 View.Bounds.Y,
-													 View.Frame.Width,
-													 View.Frame.Height - UiStyleSetting.StatusBarHeight - UiStyleSetting.NavigationBarHeight));
+				View.Bounds.Y,
+				View.Frame.Width,
+				View.Frame.Height - UiStyleSetting.StatusBarHeight - UiStyleSetting.NavigationBarHeight)) {
+				SeparatorStyle = UITableViewCellSeparatorStyle.None
+			};
 
-			tableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 
 			UILabel bgText = new UILabel (new CGRect (0, View.Frame.Height / 2, View.Frame.Width, 20)); ;
 			bgText.Text = "还没有记录，赶紧去添加吧...";
@@ -76,23 +72,58 @@ namespace iOS.App.Views
 			Add (tableView);
 		}
 
+		public override void TraitCollectionDidChange (UITraitCollection previousTraitCollection)
+		{
+			base.TraitCollectionDidChange (previousTraitCollection);
+			// 判断设备是否支持3D Touch
+			if (TraitCollection.ForceTouchCapability == UIForceTouchCapability.Available) {
+				// 注册Pop和Peek
+				RegisterForPreviewingWithDelegate (this, View);
+			}
+		}
+
+		/// <summary>
+		/// Peek
+		/// </summary>
+		/// <returns>The view controller for preview.</returns>
+		/// <param name="previewingContext">Previewing context.</param>
+		/// <param name="location">Location.</param>
+		public UIViewController GetViewControllerForPreview (IUIViewControllerPreviewing previewingContext, CGPoint location)
+		{
+			var indexPath = tableView.IndexPathForRowAtPoint (location);
+
+			if (indexPath == null)
+				return null;
+
+			var cell = tableView.CellAt (indexPath);
+
+			if (cell == null)
+				return null;
+
+			// Create a detail view controller and set its properties.
+			var detailViewController = new DetailViewController {
+				key = cell.ReuseIdentifier,
+				PreferredContentSize = new CGSize (0, 320)
+			};
+			previewingContext.SourceRect = cell.Frame;
+			return detailViewController;
+		}
+
+		/// <summary>
+		/// Pop
+		/// </summary>
+		/// <param name="previewingContext">Previewing context.</param>
+		/// <param name="viewControllerToCommit">View controller to commit.</param>
+		public void CommitViewController (IUIViewControllerPreviewing previewingContext, UIViewController viewControllerToCommit)
+		{
+			ShowViewController (viewControllerToCommit, this);
+		}
+
 		public void UpdateUiInterface ()
 		{
 			InvokeOnMainThread (() => {
 				tableView.ReloadData ();
 			});
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-		}
-
-		//退出程序
-		static void TerminateWithSuccess ()
-		{
-			Selector selector = new Selector ("terminateWithSuccess");
-			UIApplication.SharedApplication.PerformSelector (selector, UIApplication.SharedApplication, 0);
 		}
 	}
 }

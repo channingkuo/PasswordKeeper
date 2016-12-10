@@ -33,14 +33,15 @@ namespace iOS.App.Views
 		{
 			base.ViewWillAppear (animated);
 
-			Title = title ?? "新建";
+			if (!string.IsNullOrWhiteSpace (title))
+				Title = title;
 
 			View.BackgroundColor = UIColor.White;
 
 			var addInfo = new UIBarButtonItem (UIImage.FromFile ("alipay.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
-				var identity = DateTime.Now.ToString ("yyyyMMddHHmmssss");
+				var identity = info == null ? DateTime.Now.ToString ("yyyyMMddHHmmss") : info.Key;
 				var content = identity + "=" + nameTextField.Text + "=" + valueTextField.Text + "=qq.png" + "=" + captionTextField.Text + "=" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
 				FileUtils.SaveFileContentToTmp (identity, content);
 				NavigationController.PopViewController (true);
@@ -55,6 +56,9 @@ namespace iOS.App.Views
 			base.ViewDidLoad ();
 
 			info = FileUtils.GetFileContentFromTmp (key);
+			if (info != null) {
+				Title = info.Caption;
+			}
 
 			captionTextField = new UITextField (new CGRect (0, 10, View.Frame.Width, 40)) {
 				BackgroundColor = UIColor.White,
@@ -105,8 +109,17 @@ namespace iOS.App.Views
 					Text = "Password",
 					TextColor = UIColor.Gray,
 					TextAlignment = UITextAlignment.Center
-				}
+				},
+				RightViewMode = UITextFieldViewMode.Always
 			};
+			var rightView = new UIButton (new CGRect (View.Frame.Width - 10, 0, 10, 40));
+			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Normal);
+			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Selected);
+			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Focused);
+			rightView.TouchUpInside += (sender, e) => {
+				valueTextField.SecureTextEntry = !valueTextField.SecureTextEntry;
+			};
+			valueTextField.RightView = rightView;
 			border2 = new UIView (new CGRect (0, 110 + 40, valueTextField.Frame.Width, 1F)) {
 				BackgroundColor = UiStyleSetting.Color_weak_01
 			};
