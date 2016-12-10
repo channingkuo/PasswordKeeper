@@ -103,7 +103,7 @@ namespace iOS.App.Views
 			// Create a detail view controller and set its properties.
 			var detailViewController = new DetailViewController {
 				key = cell.ReuseIdentifier,
-				PreferredContentSize = new CGSize (0, 320)
+				PreferredContentSize = new CGSize (0, 0)
 			};
 			previewingContext.SourceRect = cell.Frame;
 			return detailViewController;

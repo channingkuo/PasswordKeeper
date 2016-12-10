@@ -19,3 +19,4 @@ Init: 用于保存账号密码的App
 
 2016-12-10:
 1、添加3D Touch功能，可以显示隐藏密码
+2、添加3D Touch的PreviewAction
