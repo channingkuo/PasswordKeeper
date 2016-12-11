@@ -136,7 +136,6 @@
   <ItemGroup>
     <Content Include="Entitlements.plist" />
     <BundleResource Include="Resources\qq.png" />
-    <BundleResource Include="Resources\alipay.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
@@ -159,6 +158,14 @@
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\add.png" />
+    <BundleResource Include="Resources\mail.png" />
+    <BundleResource Include="Resources\save.png" />
+    <BundleResource Include="Resources\wechat.png" />
+    <BundleResource Include="Resources\default_icon.png" />
+    <BundleResource Include="Resources\github.png" />
+    <BundleResource Include="Resources\eye_close.png" />
+    <BundleResource Include="Resources\eye_open.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

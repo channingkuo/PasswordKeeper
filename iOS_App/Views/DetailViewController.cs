@@ -14,6 +14,7 @@ using CoreGraphics;
 using System;
 using iOS.Corelib.Configuration;
 using System.Diagnostics;
+using iOS.Corelib.Utils;
 
 namespace iOS.App.Views
 {
@@ -30,14 +31,8 @@ namespace iOS.App.Views
 
 		private static IUIPreviewActionItem [] PreviewAtions {
 			get {
-				var action1 = PreviewActionForTitle ("Default Action");
-				var action2 = PreviewActionForTitle ("Destructive Action", UIPreviewActionStyle.Destructive);
-
-				var subAction1 = PreviewActionForTitle ("Sub Action 1");
-				var subAction2 = PreviewActionForTitle ("Sub Action 2");
-				var groupedActions = UIPreviewActionGroup.Create ("Sub Actions…", UIPreviewActionStyle.Default, new [] { subAction1, subAction2 });
-
-				return new IUIPreviewActionItem [] { action1, action2, groupedActions };
+				var duplicate = PreviewActionForTitle ("Copy to clipboard");
+				return new IUIPreviewActionItem [] { duplicate };
 			}
 		}
 
@@ -45,9 +40,9 @@ namespace iOS.App.Views
 		{
 			return UIPreviewAction.Create (title, style, (action, previewViewController) => {
 				var detailViewController = (DetailViewController)previewViewController;
-				var item = detailViewController?.title;
-
-				Debug.WriteLine ("{0} triggered from DetailViewController for item : {1}", action.Title, item);
+				var info = detailViewController?.info;
+				UIPasteboard.General.String = info.Value;
+				//TODO 提示已复制到粘贴面板
 			});
 		}
 
@@ -65,11 +60,26 @@ namespace iOS.App.Views
 
 			View.BackgroundColor = UIColor.White;
 
-			var addInfo = new UIBarButtonItem (UIImage.FromFile ("alipay.png"), UIBarButtonItemStyle.Plain, null);
+			var addInfo = new UIBarButtonItem (UIImage.FromFile ("save.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
+				string errorMsg = string.Empty;
+				if (string.IsNullOrWhiteSpace (captionTextField.Text))
+					errorMsg += "Caption, ";
+				if (string.IsNullOrWhiteSpace (nameTextField.Text))
+					errorMsg += "Account, ";
+				if (string.IsNullOrWhiteSpace (valueTextField.Text))
+					errorMsg += "Password, ";
+				if (!string.IsNullOrWhiteSpace (errorMsg)) {
+					errorMsg = errorMsg.Substring (0, errorMsg.Length - 2);
+					errorMsg += " can't be empty!";
+					//TODO 提示信息
+					AlertUtil.Error (errorMsg);
+					return;
+				}
+
 				var identity = info == null ? DateTime.Now.ToString ("yyyyMMddHHmmss") : info.Key;
-				var content = identity + "=" + nameTextField.Text + "=" + valueTextField.Text + "=qq.png" + "=" + captionTextField.Text + "=" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
+				var content = identity + "=" + nameTextField.Text + "=" + valueTextField.Text + "=default_icon.png" + "=" + captionTextField.Text + "=" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
 				FileUtils.SaveFileContentToTmp (identity, content);
 				NavigationController.PopViewController (true);
 			};
@@ -139,11 +149,11 @@ namespace iOS.App.Views
 				},
 				RightViewMode = UITextFieldViewMode.Always
 			};
-			var rightView = new UIButton (new CGRect (View.Frame.Width - 10, 0, 10, 40));
-			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Normal);
-			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Selected);
-			rightView.SetImage (UIImage.FromFile ("qq.png"), UIControlState.Focused);
+			var rightView = new UIButton (new CGRect (View.Frame.Width - 20, 0, 16, 40));
+			rightView.SetImage (UIImage.FromFile ("eye_close.png"), UIControlState.Normal);
 			rightView.TouchUpInside += (sender, e) => {
+				UIImage image = valueTextField.SecureTextEntry ? UIImage.FromFile ("eye_open.png") : UIImage.FromFile ("eye_close.png");
+				rightView.SetImage (image, UIControlState.Normal);
 				valueTextField.SecureTextEntry = !valueTextField.SecureTextEntry;
 			};
 			valueTextField.RightView = rightView;

@@ -35,6 +35,10 @@ namespace iOS.App.Views
 						var replyHandler = new LAContextReplyHandler ((success, error) => {
 							InvokeOnMainThread (() => {
 								if (success) {
+									//UIView.BeginAnimations (null);
+									//UIView.SetAnimationDuration (1.0);
+									//UIView.SetAnimationTransition (UIViewAnimationTransition.CurlUp, NavigationController.View, true);
+									//UIView.CommitAnimations ();
 									NavigationController.PushViewController (new HomeViewController (), true);
 								}
 							});

@@ -38,7 +38,7 @@ namespace iOS.App.Views
 			}
 
 			//导航栏右上角的新增按钮
-			var addInfo = new UIBarButtonItem (UIImage.FromFile ("alipay.png"), UIBarButtonItemStyle.Plain, null);
+			var addInfo = new UIBarButtonItem (UIImage.FromFile ("add.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
 			NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
 				NavigationController.PushViewController (new DetailViewController {
