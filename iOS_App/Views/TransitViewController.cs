@@ -24,29 +24,29 @@ namespace iOS.App.Views
 			base.ViewWillAppear (animated);
 			NavigationController.NavigationBarHidden = true;
 
-			if (!GlobalAppSetting.InForeground) {
-				if (!UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
-					AlertUtil.Error ("当前系统低于iOS 10.0");
-				} else {
-					var context = new LAContext ();
-					NSError AuthError;
-					var myReason = new NSString ("通过Home键验证手机的Touch ID");
-					if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
-						var replyHandler = new LAContextReplyHandler ((success, error) => {
-							InvokeOnMainThread (() => {
-								if (success) {
-									//UIView.BeginAnimations (null);
-									//UIView.SetAnimationDuration (1.0);
-									//UIView.SetAnimationTransition (UIViewAnimationTransition.CurlUp, NavigationController.View, true);
-									//UIView.CommitAnimations ();
-									NavigationController.PushViewController (new HomeViewController (), true);
-								}
-							});
-						});
-						context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
-					}
-				}
-			}
+			//if (!GlobalAppSetting.InForeground) {
+			//	if (!UIDevice.CurrentDevice.CheckSystemVersion (10, 0)) {
+			//		AlertUtil.Error ("当前系统低于iOS 10.0");
+			//	} else {
+			//		var context = new LAContext ();
+			//		NSError AuthError;
+			//		var myReason = new NSString ("通过Home键验证手机的Touch ID");
+			//		if (context.CanEvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError)) {
+			//			var replyHandler = new LAContextReplyHandler ((success, error) => {
+			//				InvokeOnMainThread (() => {
+			//					if (success) {
+			//UIView.BeginAnimations (null);
+			//UIView.SetAnimationDuration (1.0);
+			//UIView.SetAnimationTransition (UIViewAnimationTransition.CurlUp, NavigationController.View, true);
+			//UIView.CommitAnimations ();
+			NavigationController.PushViewController (new HomeViewController (), true);
+			//					}
+			//				});
+			//			});
+			//			context.EvaluatePolicy (LAPolicy.DeviceOwnerAuthenticationWithBiometrics, myReason, replyHandler);
+			//		}
+			//	}
+			//}
 		}
 
 		public override void ViewDidLoad ()

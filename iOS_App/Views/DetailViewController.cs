@@ -15,6 +15,8 @@ using System;
 using iOS.Corelib.Configuration;
 using System.Diagnostics;
 using iOS.Corelib.Utils;
+using Foundation;
+using ObjCRuntime;
 
 namespace iOS.App.Views
 {
@@ -26,6 +28,8 @@ namespace iOS.App.Views
 
 		UIView border, border1, border2;
 		UITextField captionTextField, nameTextField, valueTextField;
+
+		UIAlertView emptyCheckAlert, succeedAlert;
 
 		public override IUIPreviewActionItem [] PreviewActionItems => PreviewAtions;
 
@@ -42,7 +46,12 @@ namespace iOS.App.Views
 				var detailViewController = (DetailViewController)previewViewController;
 				var info = detailViewController?.info;
 				UIPasteboard.General.String = info.Value;
-				//TODO 提示已复制到粘贴面板
+				//var view = detailViewController?.View;
+				//var alert = detailViewController?.succeedAlert;
+				//alert = new UIAlertView ();
+				//alert.Title = "Password has copied to pasteboard";
+				//alert.Show ();
+				//view.PerformSelector (new Selector ("DismissAlert"), alert, 2.0);
 			});
 		}
 
@@ -59,6 +68,7 @@ namespace iOS.App.Views
 				Title = title;
 
 			View.BackgroundColor = UIColor.White;
+			View.AddGestureRecognizer (new TapGestureRecognizer (this, new Selector ("ViewTap")));
 
 			var addInfo = new UIBarButtonItem (UIImage.FromFile ("save.png"), UIBarButtonItemStyle.Plain, null);
 			NavigationItem.SetRightBarButtonItem (addInfo, false);
@@ -73,8 +83,11 @@ namespace iOS.App.Views
 				if (!string.IsNullOrWhiteSpace (errorMsg)) {
 					errorMsg = errorMsg.Substring (0, errorMsg.Length - 2);
 					errorMsg += " can't be empty!";
-					//TODO 提示信息
-					AlertUtil.Error (errorMsg);
+					emptyCheckAlert = new UIAlertView ();
+					emptyCheckAlert.Title = "Warning";
+					emptyCheckAlert.Message = errorMsg;
+					emptyCheckAlert.Show ();
+					emptyCheckAlert.PerformSelector (new Selector ("DismissAlert"), emptyCheckAlert, 2.0);
 					return;
 				}
 
@@ -83,6 +96,20 @@ namespace iOS.App.Views
 				FileUtils.SaveFileContentToTmp (identity, content);
 				NavigationController.PopViewController (true);
 			};
+		}
+
+		/// <summary>
+		/// 提示框自动消失
+		/// </summary>
+		[Export ("DismissAlert")]
+		void DismissAlert ()
+		{
+			if (emptyCheckAlert != null) {
+				emptyCheckAlert.DismissWithClickedButtonIndex (emptyCheckAlert.CancelButtonIndex, true);
+			}
+			//if (succeedAlert != null) {
+			//	succeedAlert.DismissWithClickedButtonIndex (succeedAlert.CancelButtonIndex, true);
+			//}
 		}
 
 		/// <summary>
@@ -149,7 +176,7 @@ namespace iOS.App.Views
 				},
 				RightViewMode = UITextFieldViewMode.Always
 			};
-			var rightView = new UIButton (new CGRect (View.Frame.Width - 20, 0, 16, 40));
+			var rightView = new UIButton (new CGRect (View.Frame.Width - 40, 0, 32, 40));
 			rightView.SetImage (UIImage.FromFile ("eye_close.png"), UIControlState.Normal);
 			rightView.TouchUpInside += (sender, e) => {
 				UIImage image = valueTextField.SecureTextEntry ? UIImage.FromFile ("eye_open.png") : UIImage.FromFile ("eye_close.png");
@@ -161,6 +188,25 @@ namespace iOS.App.Views
 				BackgroundColor = UiStyleSetting.Color_weak_01
 			};
 			View.AddSubviews (captionTextField, border, nameTextField, border1, valueTextField, border2);
+		}
+
+		/// <summary>
+		/// 收起键盘
+		/// </summary>
+		[Export ("ViewTap")]
+		void ViewTap ()
+		{
+			UIApplication.SharedApplication.KeyWindow.EndEditing (true);
+		}
+
+		class TapGestureRecognizer : UITapGestureRecognizer
+		{
+			public TapGestureRecognizer (NSObject target, Selector action) : base (target, action)
+			{
+				ShouldReceiveTouch += (sender, touch) => {
+					return true;
+				};
+			}
 		}
 
 		/// <summary>
