@@ -72,7 +72,6 @@
     <Compile Include="Services\LocationServiceDelegaet.cs" />
     <Compile Include="Views\DeviceHardware.cs" />
     <Compile Include="Rest\ModernHttpClientFactory.cs" />
-    <Compile Include="Utils\FileUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BuglySDK">

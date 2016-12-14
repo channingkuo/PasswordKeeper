@@ -8,15 +8,13 @@ Copyright @ Channing Kuo All rights reserved.
 ****************/
 #endregion
 using iOS.Corelib.Views;
-using iOS.Corelib;
 using UIKit;
 using CoreGraphics;
 using System;
 using iOS.Corelib.Configuration;
-using System.Diagnostics;
-using iOS.Corelib.Utils;
 using Foundation;
 using ObjCRuntime;
+using iOS.App.DataRepository;
 
 namespace iOS.App.Views
 {
@@ -25,11 +23,10 @@ namespace iOS.App.Views
 		private DataInfo info;
 		public string title;
 		public string key;
+		public bool is3DTouch = true;
 
 		UIView border, border1, border2;
 		UITextField captionTextField, nameTextField, valueTextField;
-
-		UIAlertView emptyCheckAlert, succeedAlert;
 
 		public override IUIPreviewActionItem [] PreviewActionItems => PreviewAtions;
 
@@ -46,12 +43,14 @@ namespace iOS.App.Views
 				var detailViewController = (DetailViewController)previewViewController;
 				var info = detailViewController?.info;
 				UIPasteboard.General.String = info.Value;
-				//var view = detailViewController?.View;
-				//var alert = detailViewController?.succeedAlert;
-				//alert = new UIAlertView ();
-				//alert.Title = "Password has copied to pasteboard";
-				//alert.Show ();
-				//view.PerformSelector (new Selector ("DismissAlert"), alert, 2.0);
+
+				UIAlertView alert = new UIAlertView ();
+				alert.Title = "Password has copied to pasteboard";
+				alert.Show ();
+				NSTimer.CreateScheduledTimer (2.0,
+										 (obj) => {
+											 alert.DismissWithClickedButtonIndex (alert.CancelButtonIndex, true);
+										 });
 			});
 		}
 
@@ -83,33 +82,30 @@ namespace iOS.App.Views
 				if (!string.IsNullOrWhiteSpace (errorMsg)) {
 					errorMsg = errorMsg.Substring (0, errorMsg.Length - 2);
 					errorMsg += " can't be empty!";
-					emptyCheckAlert = new UIAlertView ();
+
+					UIAlertView emptyCheckAlert = new UIAlertView ();
 					emptyCheckAlert.Title = "Warning";
 					emptyCheckAlert.Message = errorMsg;
 					emptyCheckAlert.Show ();
-					emptyCheckAlert.PerformSelector (new Selector ("DismissAlert"), emptyCheckAlert, 2.0);
+
+					NSTimer.CreateScheduledTimer (2.0,
+										 (obj) => {
+											 emptyCheckAlert.DismissWithClickedButtonIndex (emptyCheckAlert.CancelButtonIndex, true);
+										 });
 					return;
 				}
 
-				var identity = info == null ? DateTime.Now.ToString ("yyyyMMddHHmmss") : info.Key;
-				var content = identity + "=" + nameTextField.Text + "=" + valueTextField.Text + "=default_icon.png" + "=" + captionTextField.Text + "=" + DateTime.Now.ToString ("yyyy-MM-dd HH:mm:ss");
-				FileUtils.SaveFileContentToTmp (identity, content);
+				var repository = new DataInfo {
+					Key = info == null ? DateTime.Now.ToString ("yyyyMMddHHmmss") : info.Key,
+					Name = nameTextField.Text,
+					Value = valueTextField.Text,
+					Icon = "default_icon.png",
+					Caption = captionTextField.Text,
+					LastEditTime = DateTime.Now
+				};
+				DataInfoRepository.AddOrUpdate (repository);
 				NavigationController.PopViewController (true);
 			};
-		}
-
-		/// <summary>
-		/// 提示框自动消失
-		/// </summary>
-		[Export ("DismissAlert")]
-		void DismissAlert ()
-		{
-			if (emptyCheckAlert != null) {
-				emptyCheckAlert.DismissWithClickedButtonIndex (emptyCheckAlert.CancelButtonIndex, true);
-			}
-			//if (succeedAlert != null) {
-			//	succeedAlert.DismissWithClickedButtonIndex (succeedAlert.CancelButtonIndex, true);
-			//}
 		}
 
 		/// <summary>
@@ -119,7 +115,7 @@ namespace iOS.App.Views
 		{
 			base.ViewDidLoad ();
 
-			info = FileUtils.GetFileContentFromTmp (key);
+			info = DataInfoRepository.GetDataInfoByKey (key);
 			if (info != null) {
 				Title = info.Caption;
 			}
@@ -168,7 +164,7 @@ namespace iOS.App.Views
 				TextAlignment = UITextAlignment.Left,
 				Text = info == null ? "" : info.Value,
 				Placeholder = "Password",
-				SecureTextEntry = true,
+				SecureTextEntry = is3DTouch,
 				LeftView = new UILabel (new CGRect (0, 0, View.Frame.Width / 4, 40)) {
 					Text = "Password",
 					TextColor = UIColor.Gray,
@@ -177,7 +173,7 @@ namespace iOS.App.Views
 				RightViewMode = UITextFieldViewMode.Always
 			};
 			var rightView = new UIButton (new CGRect (View.Frame.Width - 40, 0, 32, 40));
-			rightView.SetImage (UIImage.FromFile ("eye_close.png"), UIControlState.Normal);
+			rightView.SetImage (is3DTouch ? UIImage.FromFile ("eye_close.png") : UIImage.FromFile ("eye_open.png"), UIControlState.Normal);
 			rightView.TouchUpInside += (sender, e) => {
 				UIImage image = valueTextField.SecureTextEntry ? UIImage.FromFile ("eye_open.png") : UIImage.FromFile ("eye_close.png");
 				rightView.SetImage (image, UIControlState.Normal);

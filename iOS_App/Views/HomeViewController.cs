@@ -9,11 +9,9 @@ Copyright @ Channing Kuo All rights reserved.
 #endregion
 using System.IO;
 using CoreGraphics;
-using Foundation;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
 using iOS.Corelib.Views;
-using ObjCRuntime;
 using UIKit;
 
 namespace iOS.App.Views
@@ -103,7 +101,8 @@ namespace iOS.App.Views
 			// Create a detail view controller and set its properties.
 			var detailViewController = new DetailViewController {
 				key = cell.ReuseIdentifier,
-				PreferredContentSize = new CGSize (0, 0)
+				PreferredContentSize = new CGSize (0, 0),
+				is3DTouch = false
 			};
 			previewingContext.SourceRect = cell.Frame;
 			return detailViewController;

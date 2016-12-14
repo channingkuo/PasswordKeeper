@@ -8,10 +8,10 @@ Copyright @ Channing Kuo All rights reserved.
 ****************/
 #endregion
 using Foundation;
-using iOS.Corelib;
 using System;
 using System.Collections.Generic;
 using UIKit;
+using iOS.App.DataRepository;
 using CoreGraphics;
 
 namespace iOS.App.Views
@@ -23,7 +23,7 @@ namespace iOS.App.Views
 
 		public TableViewSource (HomeViewController vc)
 		{
-			infos = FileUtils.GetAllFileContentFromTmp ();
+			infos = DataInfoRepository.GetDataInfo ();
 			if (infos.Count > 0)
 				vc.tableView.BackgroundView = null;
 			this.vc = vc;
@@ -81,14 +81,14 @@ namespace iOS.App.Views
 				return;
 
 			var info = infos [indexPath.Row];
-			FileUtils.DeleteFile (key: info.Key);
+			DataInfoRepository.DeleteInfoByKey (info.Key);
 			infos.RemoveAll ((obj) => obj.Key == info.Key);
-			//if (infos.Count == 0)
-			//	vc.tableView.Add (new UILabel (new CGRect (0, vc.View.Frame.Height / 2, vc.View.Frame.Width, 20)) {
-			//		Text = "还没有记录，赶紧去添加吧...",
-			//		TextAlignment = UITextAlignment.Center,
-			//		TextColor = UIColor.FromRGB (136, 136, 136)
-			//	});
+			if (infos.Count == 0)
+				vc.tableView.Add (new UILabel (new CGRect (0, vc.View.Frame.Height / 2, vc.View.Frame.Width, 20)) {
+					Text = "还没有记录，赶紧去添加吧...",
+					TextAlignment = UITextAlignment.Center,
+					TextColor = UIColor.FromRGB (136, 136, 136)
+				});
 			vc.tableView.ReloadData ();
 		}
 

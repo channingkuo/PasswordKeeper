@@ -41,6 +41,7 @@
     <Compile Include="Views\TableViewSource.cs" />
     <Compile Include="Views\HomeViewController.cs" />
     <Compile Include="Views\TransitViewController.cs" />
+    <Compile Include="DataRepository\DataInfoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BaiduMapSDK">
@@ -77,6 +78,9 @@
       <Project>{A0EB2501-9DF4-46F9-B105-E7EBBE76D6FA}</Project>
       <Name>iOS.Corelib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataRepository\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

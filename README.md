@@ -24,3 +24,6 @@ Init: 用于保存账号密码的App
 2016-12-11:
 1、PreviewAcition复制密码到剪贴面板
 2、DetailViewController 保存数据的检查
+
+2016-12-14:
+1、替换文件存储为SQLite存储

@@ -13,7 +13,7 @@ using Foundation;
 using UIKit;
 using iOS.Corelib.Configuration;
 using iOS.Corelib.Utils;
-using iOS.Corelib;
+using iOS.App.DataRepository;
 
 namespace iOS.App.Views
 {
@@ -30,19 +30,19 @@ namespace iOS.App.Views
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.Default;
 			iconView = new UIImageView ();
-			caption = new UILabel () {
+			caption = new UILabel {
 				Font = UIFont.BoldSystemFontOfSize ((nfloat)UiStyleSetting.FontTitleSize),
 				TextColor = UIColor.Black,
 				TextAlignment = UITextAlignment.Left,
 				BackgroundColor = UIColor.Clear
 			};
-			account = new UILabel () {
+			account = new UILabel {
 				Font = UIFont.SystemFontOfSize ((nfloat)UiStyleSetting.FontDetailSize),
 				TextColor = UIColor.Gray,
 				TextAlignment = UITextAlignment.Left,
 				BackgroundColor = UIColor.Clear
 			};
-			lastEditTime = new UILabel () {
+			lastEditTime = new UILabel {
 				Font = UIFont.SystemFontOfSize ((nfloat)UiStyleSetting.FontDetailSize),
 				TextColor = UIColor.Gray,
 				TextAlignment = UITextAlignment.Right,
@@ -61,15 +61,7 @@ namespace iOS.App.Views
 			iconView.Image = string.IsNullOrWhiteSpace (info.Icon) ? null : UIImage.FromFile (info.Icon);
 			caption.Text = info.Caption;
 			account.Text = info.Name;
-			lastEditTime.Text = DateTimeUtil.GetDateTimeString (TransFormat (info.LastEditTime), false);
-		}
-
-		private DateTime TransFormat (string time)
-		{
-			var dateSpans = time.Split ('-');
-			var tmpSpans = dateSpans [2].Split (' ');
-			var timeSpans = tmpSpans [1].Split (':');
-			return new DateTime (Convert.ToInt32 (dateSpans [0]), Convert.ToInt32 (dateSpans [1]), Convert.ToInt32 (tmpSpans [0]), Convert.ToInt32 (timeSpans [0]), Convert.ToInt32 (timeSpans [1]), Convert.ToInt32 (timeSpans [2]));
+			lastEditTime.Text = DateTimeUtil.GetDateTimeString (info.LastEditTime, false);
 		}
 
 		public override void LayoutSubviews ()
@@ -86,7 +78,7 @@ namespace iOS.App.Views
 				ContentView.Bounds.Width - (UiStyleSetting.HeadIconSizeMedium + UiStyleSetting.PaddingSizeMedium * 2),
 				24
 			);
-			lastEditTime.Frame = new CGRect (ContentView.Bounds.Width - 90, 10, 80, 26);
+			lastEditTime.Frame = new CGRect (ContentView.Bounds.Width - 90, 20, 80, 26);
 
 			border.Frame = new CGRect (UiStyleSetting.PaddingSizeMedium, Frame.Height - 1, Frame.Width - UiStyleSetting.PaddingSizeMedium, 1);
 		}

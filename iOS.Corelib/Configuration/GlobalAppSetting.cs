@@ -92,7 +92,7 @@ namespace iOS.Corelib.Configuration
 		/// </summary>
 		public static string LocalDbVersion {
 			get {
-				return "150729";
+				return "161205";
 			}
 		}
 

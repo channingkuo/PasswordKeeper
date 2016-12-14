@@ -57,7 +57,6 @@ namespace iOS.Corelib.DataRepository
 				_dbConnection = null;
 				SQLite3.Config (SQLite3.ConfigOption.Serialized);
 				var dbName = Path.Combine (dbFilePath, string.Format ("AppData_{0}_" + GlobalAppSetting.LocalDbVersion + ".db", userCode));
-				//_dbConnection = new SQLiteConnection (dbName);
 				_dbConnection = new SQLiteConnection (dbName, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.FullMutex, true);
 
 				CreateTableOrIndexActions.ForEach (action => {
